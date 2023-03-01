@@ -43,7 +43,7 @@ main{
     width: 2rem;
 }
 input{
-    margin-left: 2rem;
+    margin-left: 3rem;
 }
 .imagen{
     object-fit: cover;
