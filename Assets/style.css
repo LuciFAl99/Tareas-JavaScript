@@ -55,6 +55,11 @@ input{
     width: 20rem;
     height: 20rem;
 }
+.imagenes{
+    object-fit: cover;
+    width: 20rem;
+    height: 15rem;
+}
 footer{
 
     background-color: deeppink;
