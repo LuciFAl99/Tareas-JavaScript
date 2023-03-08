@@ -15,6 +15,9 @@ main{
     background-color: black;
     color: white;
 }
+h2{
+    color: white;
+}
 
 .home {
     background-image: url(./Imagenes/books.jpg);
@@ -94,3 +97,8 @@ th, td{
 td{
     height: 2rem;
 }
+
+.inputs{
+    margin-left: 1rem;
+}
+
