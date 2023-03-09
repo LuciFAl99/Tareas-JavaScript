@@ -22,13 +22,21 @@ function crearTarjeta(array) {
  function pintarTarjetas(array, elemento) {
     let template = ''
     for (let tarjeta of array) {
-        if (tarjeta.date>= data.currentDate)
         template += crearTarjeta(tarjeta)
     }
     elemento.innerHTML = template
 }
 
-pintarTarjetas(data.events, $section)
+function filtroUpcoming(array){
+    const eventoFiltrado = [ ]
+    for (let tarjeta of array) {
+        if (tarjeta.date>= data.currentDate){
+            eventoFiltrado.push(tarjeta)
+        }
+    }
+    return eventoFiltrado
+}
+pintarTarjetas(filtroUpcoming(data.events), $section)
 
 let listaCategorias = Array.from(new Set(dataCateg.map(datos=>datos.category)))  // set acepta valores únicos, por eso nos filtra siete elementos porque algunos estan repetidos y en total serian 14.Nos quita todos los repetidos
 let categorias = listaCategorias.reduce((acc, category) => {
@@ -42,11 +50,25 @@ $div.innerHTML += categorias
 
 $div.addEventListener('change', e =>{
 
-   const filtrado = filtroCheckbox(dataCateg)
+   const filtrado = filtroCruzado()
+   if (filtroCruzado()==0){
+    return $section.innerHTML = `<h2> No results found </h2>`
+}
+   console.log(filtrado)
     pintarTarjetas(filtrado, $section)
- 
-   
+  
 })
+
+
+buscador.addEventListener('input', e => {
+    const filtrado = filtroCruzado()
+    if (filtroCruzado()==0){
+        return $section.innerHTML = `<h2> No results found </h2>`
+    }
+    console.log(filtrado)
+     pintarTarjetas(filtrado, $section)
+})
+
 
 
 function filtroCheckbox(lista){
@@ -56,26 +78,24 @@ function filtroCheckbox(lista){
     if(listaValor.length === 0){
         return lista
     }
-
      const listaFiltro = lista.filter(e => {return listaValor.includes(e.category)})
-     console.log(listaFiltro)
      return listaFiltro
 }
 
-function filtrarBusqueda(){
-    resultado.innerHTML = ' ';
+function filtrarBusqueda(lista){
    const texto = buscador.value.toLowerCase();
-   for(let tarjeta of data.events){
-    let nombre= tarjeta.name.toLowerCase();
-    if (nombre.indexOf(texto) !== -1 && tarjeta.date>= data.currentDate){
-       resultado.innerHTML+=crearTarjeta(tarjeta)
-    }
-    
-   }
-   if (resultado.innerHTML === ' '){
-    resultado.innerHTML += `<h2>No results found </h2>`
-   }
+   const search = lista.filter( e =>{
+    return e.name.toLowerCase().includes(texto)
+} )
+console.log(search)
+return search
 }
 
-boton.addEventListener('click', filtrarBusqueda)
-buscador.addEventListener('keyup', filtrarBusqueda)
+function filtroCruzado(){
+    return filtroCheckbox(filtrarBusqueda(filtroUpcoming(data.events)))
+    
+}
+
+
+//  boton.addEventListener('click', filtrarBusqueda)
+//  buscador.addEventListener('keyup', filtrarBusq

@@ -4,6 +4,7 @@ const dataCateg =  data.events.filter(datos => datos.category)
 const buscador = document.getElementById("buscador")
 const boton = document.getElementById("boton")
 const resultado = document.querySelector(".resultado")
+const $form = document.getElementById("formulario")
 
 function crearTarjeta(tarjetas) {
     return ` 
@@ -42,12 +43,24 @@ $div.innerHTML += categorias
 
 $div.addEventListener('change', e =>{
 
-   const filtrado = filtroCheckbox(dataCateg)
+   const filtrado = filtroCruzado()
+   if (filtroCruzado()==0){
+    return $section.innerHTML = `<h2> No results found </h2>`
+}
+   console.log(filtrado)
     pintarTarjetas(filtrado, $section)
- 
-   
+  
 })
 
+
+buscador.addEventListener('input', e => {
+    const filtrado = filtroCruzado()
+    if (filtroCruzado()==0){
+        return $section.innerHTML = `<h2> No results found </h2>`
+    }
+    console.log(filtrado)
+     pintarTarjetas(filtrado, $section)
+})
 
 
 
@@ -58,33 +71,28 @@ function filtroCheckbox(lista){
     if(listaValor.length === 0){
         return lista
     }
-
      const listaFiltro = lista.filter(e => {return listaValor.includes(e.category)})
-     console.log(listaFiltro)
      return listaFiltro
 }
 
-function filtrarBusqueda(){
-    resultado.innerHTML = ' ';
+function filtrarBusqueda(lista){
    const texto = buscador.value.toLowerCase();
-   for(let tarjeta of data.events){
-    let nombre= tarjeta.name.toLowerCase();
-    if (nombre.indexOf(texto) !== -1){
-       resultado.innerHTML+=crearTarjeta(tarjeta)
-    }
-    
-   }
-   if (resultado.innerHTML === ' '){
-    resultado.innerHTML += `<h2>No results found </h2>`
-   }
+   const search = lista.filter( e =>{
+    return e.name.toLowerCase().includes(texto)
+} )
+console.log(search)
+return search
 }
-boton.addEventListener('click', filtrarBusqueda)
-buscador.addEventListener('keyup', filtrarBusqueda)
+
+//  boton.addEventListener('click', filtrarBusqueda)
+//  buscador.addEventListener('keyup', filtrarBusqueda)
 
 
 function filtroCruzado(){
-    return filtrarBusqueda(filtroCheckbox(dataCateg))
+    return filtroCheckbox(filtrarBusqueda(data.events))
+    
 }
 
+console.log(filtrarBusqueda())
 
 
