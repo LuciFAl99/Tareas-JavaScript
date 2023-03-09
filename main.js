@@ -11,7 +11,6 @@ function crearTarjeta(tarjetas) {
         <img src="${tarjetas.image}" class="card-img-top imagenes" alt="${tarjetas.category}">
         <div class="card-body">
            <h2>${tarjetas.name}</h2>
-           <p class="card-text">${tarjetas.description}</p>
            <div class="d-flex justify-content-around">
                <p><strong>Price: $</>    ${tarjetas.price}</strong><p/>
                <a href="./details.html?id=${tarjetas._id}" class="btn btn-primary">Details</a>
