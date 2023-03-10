@@ -7,36 +7,28 @@ const resultado = document.querySelector(".resultado")
 
 function crearTarjeta(array) {
     return ` 
-     <div class="card mt-3 style=" width: 18rem;">
-     <img src="${array.image}" class="card-img-top imagenes" alt="cine">
-    <div class="card-body">
-        <h2>${array.name}</h2>
-        <div class="d-flex justify-content-around">
-         <p><strong>Price: $</>    ${array.price}</strong><p/>
-            <a href="./details.html?id=${array._id}" class="btn btn-primary">Details</a>
-        </div>
-    </div>
-    </div>`
+    <div class="card mt-3 style=" width: 18rem;">
+       <img src="${array.image}" class="card-img-top imagenes" alt="${array.category}">
+       <div class="card-body">
+          <h2>${array.name}</h2>
+          <div class="d-flex justify-content-around">
+              <p><strong>Price: $</>    ${array.price}</strong><p/>
+              <a href="./details.html?id=${array._id}" class="btn btn-primary">Details</a>
+          </div>
+       </div>
+   </div>`
 }
 
  function pintarTarjetas(array, elemento) {
     let template = ''
     for (let tarjeta of array) {
+        if (tarjeta.date<= data.currentDate)
         template += crearTarjeta(tarjeta)
     }
     elemento.innerHTML = template
 }
 
-function filtroUpcoming(array){
-    const eventoFiltrado = [ ]
-    for (let tarjeta of array) {
-        if (tarjeta.date<= data.currentDate){
-            eventoFiltrado.push(tarjeta)
-        }
-    }
-    return eventoFiltrado
-}
-pintarTarjetas(filtroUpcoming(data.events), $section)
+pintarTarjetas(data.events, $section)
 
 let listaCategorias = Array.from(new Set(dataCateg.map(datos=>datos.category)))  // set acepta valores únicos, por eso nos filtra siete elementos porque algunos estan repetidos y en total serian 14.Nos quita todos los repetidos
 let categorias = listaCategorias.reduce((acc, category) => {
@@ -91,11 +83,14 @@ console.log(search)
 return search
 }
 
+//  boton.addEventListener('click', filtrarBusqueda)
+//  buscador.addEventListener('keyup', filtrarBusqueda)
+
+
 function filtroCruzado(){
-    return filtroCheckbox(filtrarBusqueda(filtroUpcoming(data.events)))
+    return filtroCheckbox(filtrarBusqueda(data.events))
     
 }
 
+console.log(filtrarBusqueda())
 
-//  boton.addEventListener('click', filtrarBusqueda)
-//  buscador.addEventListener('keyup', filtrarBusq
