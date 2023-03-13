@@ -3,8 +3,10 @@ const params = new URLSearchParams(location.search)//Es un método que nos permi
 const id = params.get("id")
 
 //comparar el id que trajimos de la url con los id de la data.event
-
-let tarjeta = data.events.find(elemento => elemento._id=== id)
+fetch('https://mindhub-xj03.onrender.com/api/amazing')
+    .then(response => response.json())
+    .then(data => {
+let tarjeta = data.events.find(elemento => elemento._id==id)
 
 function createCard(objeto){
     return `<img src="${objeto.image}" alt="${objeto.category}" class="imagen me-5 mt-4 ms-5 d-flex justify-content-center">
@@ -20,7 +22,7 @@ function createCard(objeto){
             </p>
             <p><strong>Capacity:</strong> ${objeto.capacity}
             </p>
-            <p><strong>Assistance:</strong> ${objeto.assistance ? objeto.assistance : objeto.estimate}
+            <p class="assistance"><strong>${objeto.assistance ? "Assistance: "+objeto.assistance: "Estimate: "+objeto.estimate}</strong>
             </p>
 
 
@@ -35,3 +37,4 @@ function renderCard(objeto, elemento){
 }
 
 renderCard(tarjeta, $div)
+    })

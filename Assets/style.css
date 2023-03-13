@@ -101,4 +101,24 @@ td{
 .inputs{
     margin-left: 1rem;
 }
-
+.table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .header-cell {
+    font-weight: bold;
+    padding: 8px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+   
+  }
+  
+  .data-cell {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+  }
+ 
