@@ -10,49 +10,23 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
         const events = data.events;
         const sortedEvents = events.sort((a, b) => b.assistance / b.capacity - a.assistance / a.capacity);
         const topEvent = sortedEvents[0];
-
+        const sortEvents = events.sort((a, b) => a.assistance / a.capacity - b.assistance / b.capacity);
+        const lowAttendanceEvent = sortEvents[0];
         const attendancePercentage = (topEvent.assistance / topEvent.capacity) * 100;
         $td.innerHTML = (`${topEvent.name}: ${attendancePercentage.toFixed(2)}%`);
-    });
-
-
-
-
-fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then(response => response.json())
-    .then(data => {
-        const events = data.events;
-        const sortedEvents = events.sort((a, b) => a.assistance / a.capacity - b.assistance / b.capacity);
-        const lowAttendanceEvent = sortedEvents[0];
-
-        const attendancePercentage = (lowAttendanceEvent.assistance / lowAttendanceEvent.capacity) * 100;
-        $td2.innerHTML = (`${lowAttendanceEvent.name}: ${attendancePercentage.toFixed(2)}%`);
-    });
-
-
-
-fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then(response => response.json())
-    .then(data => {
-        const events = data.events;
-
-        // Encontrar el evento con mayor capacidad
-        const sortedEvents = events.sort((a, b) => b.capacity - a.capacity);
-        const topCapacityEvent = sortedEvents[0];
+        const attendPercentage = (lowAttendanceEvent.assistance / lowAttendanceEvent.capacity) * 100;
+        $td2.innerHTML = (`${lowAttendanceEvent.name}: ${attendPercentage.toFixed(2)}%`);
+        const sorEvents = events.sort((a, b) => b.capacity - a.capacity);
+        const topCapacityEvent = sorEvents[0];
 
         // Mostrar el nombre y la capacidad del evento con mayor capacidad
         $td3.innerHTML += (`${topCapacityEvent.name}: ${topCapacityEvent.capacity}<br>`);
-    });
-
-
-fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then(response => response.json())
-    .then(data => {
-        const events = data.events;
+   //upcomign stats
+        const events2 = data.events;
         const currentDate = new Date();
         const categories = {};
 
-        events.filter(event => new Date(event.date) < currentDate)
+        events2.filter(event => new Date(event.date) < currentDate)
             .forEach(event => {
                 if (event.category in categories) {
                     const revenue = event.price * event.assistance;
@@ -70,18 +44,16 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
         for (let category in categories) {
             console.log(`${category}: $${categories[category].toFixed(2)}<br>`);
         }
-    });
 
-fetch('https://mindhub-xj03.onrender.com/api/amazing')
-    .then(response => response.json())
-    .then(data => {
-        const events = data.events;
-        const currentDate = new Date();
-        const categories = {};
 
-        events.filter(event => new Date(event.date) < currentDate)
+
+        const events3 = data.events;
+        const currentDate2 = new Date();
+        const categories2 = {};
+
+        events3.filter(event => new Date(event.date) < currentDate2)
             .forEach(event => {
-                if (event.category in categories) {
+                if (event.category in categories2) {
                     const revenue = event.price * event.assistance;
                     if (!isNaN(revenue)) {
                         categories[event.category].revenue += revenue;
@@ -193,3 +165,8 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
   });
 
 
+
+
+
+
+  
