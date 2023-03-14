@@ -21,39 +21,15 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
 
         // Mostrar el nombre y la capacidad del evento con mayor capacidad
         $td3.innerHTML += (`${topCapacityEvent.name}: ${topCapacityEvent.capacity}<br>`);
-   //upcomign stats
+   //past stats
+   
+        const categories = {};
         const events2 = data.events;
         const currentDate = new Date();
-        const categories = {};
 
         events2.filter(event => new Date(event.date) < currentDate)
             .forEach(event => {
                 if (event.category in categories) {
-                    const revenue = event.price * event.assistance;
-                    if (!isNaN(revenue)) {
-                        categories[event.category] += revenue;
-                    }
-                } else {
-                    const revenue = event.price * event.assistance;
-                    if (!isNaN(revenue)) {
-                        categories[event.category] = revenue;
-                    }
-                }
-            });
-
-        for (let category in categories) {
-            console.log(`${category}: $${categories[category].toFixed(2)}<br>`);
-        }
-
-
-
-        const events3 = data.events;
-        const currentDate2 = new Date();
-        const categories2 = {};
-
-        events3.filter(event => new Date(event.date) < currentDate2)
-            .forEach(event => {
-                if (event.category in categories2) {
                     const revenue = event.price * event.assistance;
                     if (!isNaN(revenue)) {
                         categories[event.category].revenue += revenue;
@@ -102,7 +78,7 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
 
   // Obtener el contenedor donde se mostrará la tabla
 
-
+//upcoming stats
   fetch('https://mindhub-xj03.onrender.com/api/amazing')
   .then(response => response.json())
   .then(data => {
@@ -163,7 +139,6 @@ fetch('https://mindhub-xj03.onrender.com/api/amazing')
 
     $tr2.appendChild(table);
   });
-
 
 
 
